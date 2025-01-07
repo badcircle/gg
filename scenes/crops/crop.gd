@@ -20,7 +20,7 @@ func _ready() -> void:
 		crop = randi_range(0, Crops.size() - 1)
 	getStageScene()
 	assets = getMatchingAssets()
-	print(assets)
+	#print(assets)
 
 # Called every frame. delta is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -43,6 +43,8 @@ func refresh() -> void:
 
 func getStageScene() -> void:
 	var path = str(crops_folder, Crops.keys()[crop], "_", current_stage, ".fbx")
+	for child in get_children():
+		child.free()
 	if FileAccess.file_exists(path):
 		active_mesh = load(path)
 		var thisMesh = active_mesh.instantiate()

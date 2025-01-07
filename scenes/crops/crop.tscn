@@ -1,18 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://buiu0jfgnj6i3"]
+[gd_scene load_steps=2 format=3 uid="uid://buiu0jfgnj6i3"]
 
 [ext_resource type="Script" path="res://scenes/crops/crop.gd" id="1_e42d6"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xu5hf"]
-albedo_color = Color(0.28017, 0.142041, 0.0657922, 1)
-
-[sub_resource type="BoxMesh" id="BoxMesh_wnsch"]
-material = SubResource("StandardMaterial3D_xu5hf")
-size = Vector3(1, 0.25, 1)
-
 [node name="Crop" type="Node3D"]
 script = ExtResource("1_e42d6")
-
-[node name="Dirt" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.13, 0)
-visible = false
-mesh = SubResource("BoxMesh_wnsch")
