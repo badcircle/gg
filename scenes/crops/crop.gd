@@ -44,10 +44,15 @@ func refresh() -> void:
 
 func getStageScene() -> void:
 	var path = str(crops_folder, Crops.keys()[crop], "_", cycle[current_stage], ".fbx")
+	var current_rot = 0.0
 	for child in get_children():
+		current_rot = child.rotation_degrees.y
 		child.free()
 	if FileAccess.file_exists(path):
 		active_mesh = load(path)
 		var thisMesh = active_mesh.instantiate()
-		thisMesh.rotation_degrees.y = randi_range(0, 360)
+		if current_rot != 0:
+			thisMesh.rotation_degrees.y = current_rot
+		else:
+			thisMesh.rotation_degrees.y = randi_range(0, 360)
 		add_child(thisMesh)

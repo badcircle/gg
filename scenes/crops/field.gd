@@ -6,7 +6,7 @@ class_name Field extends Node3D
 var field_state : Dictionary = Dictionary()
 const crop : PackedScene = preload("res://scenes/crops/crop.tscn")
 
-@export var crop_scale = 1.137
+@export var crop_scale = 1.75
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
