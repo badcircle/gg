@@ -1,0 +1,24 @@
+shader_type spatial;
+
+uniform float pivot;
+uniform float wave;
+uniform float mask_white;
+uniform float mask_black;
+uniform vec4 colour : hint_color;
+
+void vertex() {
+  float time = TIME * 1.0; // TIME is a constant value from the engine
+  float body = (VERTEX.y + 1.0) / 20.0; // for this tree, body goes from 1.0 to 10.0
+  float mask = smoothstep(mask_white, mask_black, 1.0 - body); // the mask at which movement happens, 0 is no movement, 1 is movement
+  float pivot_angle = cos(time) * 0.1 * pivot * mask; // the angle of the pivot of rotation in radians - as long as mask is > 0, the rotation will apply to this vertex
+  mat2 rotation_matrix = mat2(vec2(cos(pivot_angle), -sin(pivot_angle)), vec2(sin(pivot_angle), cos(pivot_angle))); // the rotation matrix (rotates all the vertexed by the supplied angles in situ)
+//  COLOR = vec4(mask, mask, mask, 1.0); // draw the colour of the mask on the mesh (not required)
+  COLOR = colour; // draw the colour from the shader param, you could use a sampler2D uniform for a texture
+  VERTEX.x += cos(time + body) * mask * wave; // wave the masked part of the mesh from side to side in the X axis
+  VERTEX.xz = mix(VERTEX.xz, rotation_matrix * VERTEX.xz, wave); // add the rotation on the masked part
+}
+
+void fragment(){
+  ALBEDO = vec3(COLOR[0],COLOR[1],COLOR[2]);
+  ALPHA = COLOR[3];
+}

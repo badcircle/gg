@@ -1,0 +1,45 @@
+[gd_scene load_steps=7 format=3 uid="uid://du0y27kdteq1t"]
+
+[ext_resource type="Script" path="res://scenes/crops/field.gd" id="1_av0ph"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_82p0b"]
+sky_top_color = Color(0.129, 0.129, 0.129, 1)
+sky_horizon_color = Color(0.129, 0.129, 0.129, 1)
+ground_bottom_color = Color(0.129, 0.129, 0.129, 1)
+ground_horizon_color = Color(0.129, 0.129, 0.129, 1)
+
+[sub_resource type="Sky" id="Sky_kjkqw"]
+sky_material = SubResource("ProceduralSkyMaterial_82p0b")
+
+[sub_resource type="Environment" id="Environment_0vehe"]
+background_mode = 2
+sky = SubResource("Sky_kjkqw")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ld6co"]
+albedo_color = Color(0.28017, 0.142041, 0.0657922, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_s01ev"]
+material = SubResource("StandardMaterial3D_ld6co")
+size = Vector3(6, 0.5, 6)
+
+[node name="Field" type="Node3D"]
+script = ExtResource("1_av0ph")
+
+[node name="Sun" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Env" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_0vehe")
+
+[node name="Dirt" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, -0.25, 2.5)
+mesh = SubResource("BoxMesh_s01ev")
+
+[node name="Cam_Rot" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, -0.25, 2.5)
+
+[node name="Cam" type="Camera3D" parent="Cam_Rot"]
+transform = Transform3D(-1, 4.47979e-08, -1.09572e-07, -4.28829e-08, 0.725663, 0.688051, 1.10336e-07, 0.688051, -0.725663, -0.028596, 7.35475, -7.81038)

@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://buiu0jfgnj6i3"]
+
+[ext_resource type="Script" path="res://scenes/crops/crop.gd" id="1_e42d6"]
+
+[node name="Crop" type="Node3D"]
+script = ExtResource("1_e42d6")
