@@ -44,7 +44,6 @@ func populateField(f : Dictionary) -> void:
 
 func grow(xy: Vector2) -> void:
 	field_state[xy].Stage = field_state[xy].Stage + 1
-	field_state[xy].Stage = clamp(field_state[xy].Stage, 0, 4)
+	field_state[xy].Stage = wrapi(field_state[xy].Stage, 0, 6)
 	field_state[xy].Scene.current_stage = field_state[xy].Stage
 	field_state[xy].Scene.getStageScene()
-	

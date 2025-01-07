@@ -8,9 +8,10 @@ enum Crops {Apple, Bamboo, Beet, BushBerries, Cactus, Carrot, Corn, Flower, Lett
 const NeedSpace = ['Apple', 'BushBerries', 'Cactus', 'Orange', 'PalmTree']
 const stages = 5 # this number should be 1 higher than the actual number of growth stages
 
+const cycle = {0: 0, 1: 1, 2: 2, 3: 3, 4: 4, 5: "Harvested"}
 
 @export var crop : Crops
-var current_stage : int = randi_range(1,4)
+var current_stage : int = 0
 var active_mesh : PackedScene
 
 # Called when the node enters the scene tree for the first time.
@@ -42,7 +43,7 @@ func refresh() -> void:
 	assets = getMatchingAssets()
 
 func getStageScene() -> void:
-	var path = str(crops_folder, Crops.keys()[crop], "_", current_stage, ".fbx")
+	var path = str(crops_folder, Crops.keys()[crop], "_", cycle[current_stage], ".fbx")
 	for child in get_children():
 		child.free()
 	if FileAccess.file_exists(path):
