@@ -35,7 +35,7 @@ func play_notes() -> void:
 
 func shift_pitch(diff) -> void:
 	var shiftDir = Input.get_axis("shift_pitch_down", "shift_pitch_up") + 1.0
-	pitch_scale = move_toward(pitch_scale, shiftDir, diff * PI * PI)
+	pitch_scale = move_toward(pitch_scale, shiftDir, diff)
 	pitch_scale = clamp(pitch_scale, 0.5, 1.5)
 	for note in notes:
 		note.pitch_scale = pitch_scale

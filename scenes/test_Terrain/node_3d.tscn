@@ -1,0 +1,101 @@
+[gd_scene load_steps=14 format=3 uid="uid://mpsc6ru53cp0"]
+
+[ext_resource type="Texture2D" uid="uid://br7bfxcxh60df" path="res://demo/assets/textures/rock030_alb_ht.png" id="1_lw7i3"]
+[ext_resource type="Texture2D" uid="uid://cr72kjil43vgj" path="res://demo/assets/textures/rock030_nrm_rgh.png" id="2_swuxx"]
+[ext_resource type="Texture2D" uid="uid://ddprscrpsofah" path="res://demo/assets/textures/ground037_alb_ht.png" id="3_f3n4m"]
+[ext_resource type="Texture2D" uid="uid://c1ots7w6i0i1q" path="res://demo/assets/textures/ground037_nrm_rgh.png" id="4_ah4cm"]
+
+[sub_resource type="Gradient" id="Gradient_1mu27"]
+offsets = PackedFloat32Array(0.2, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_sh1jo"]
+noise_type = 2
+frequency = 0.03
+cellular_jitter = 3.0
+cellular_return_type = 0
+domain_warp_enabled = true
+domain_warp_type = 1
+domain_warp_amplitude = 50.0
+domain_warp_fractal_type = 2
+domain_warp_fractal_lacunarity = 1.5
+domain_warp_fractal_gain = 1.0
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_qivvc"]
+seamless = true
+color_ramp = SubResource("Gradient_1mu27")
+noise = SubResource("FastNoiseLite_sh1jo")
+
+[sub_resource type="Terrain3DMaterial" id="Terrain3DMaterial_8ve5y"]
+_shader_parameters = {
+"auto_base_texture": 0,
+"auto_height_reduction": 0.1,
+"auto_overlay_texture": 1,
+"auto_slope": 1.0,
+"blend_sharpness": 0.87,
+"dual_scale_far": 170.0,
+"dual_scale_near": 100.0,
+"dual_scale_reduction": 0.3,
+"dual_scale_texture": 0,
+"height_blending": true,
+"macro_variation1": Color(1, 1, 1, 1),
+"macro_variation2": Color(1, 1, 1, 1),
+"noise1_angle": 0.0,
+"noise1_offset": Vector2(0.5, 0.5),
+"noise1_scale": 0.04,
+"noise2_scale": 0.076,
+"noise3_scale": 0.225,
+"noise_texture": SubResource("NoiseTexture2D_qivvc"),
+"tri_scale_reduction": 0.3,
+"vertex_normals_distance": 128.0,
+"world_noise_height": 64.0,
+"world_noise_lod_distance": 7500.0,
+"world_noise_max_octaves": 4,
+"world_noise_min_octaves": 2,
+"world_noise_offset": Vector3(0, 0, 0),
+"world_noise_region_blend": 0.33,
+"world_noise_scale": 5.0
+}
+world_background = 2
+auto_shader = true
+dual_scaling = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_j3dqs"]
+transparency = 4
+cull_mode = 2
+vertex_color_use_as_albedo = true
+backlight_enabled = true
+backlight = Color(0.5, 0.5, 0.5, 1)
+distance_fade_mode = 1
+distance_fade_min_distance = 960.0
+distance_fade_max_distance = 480.0
+
+[sub_resource type="Terrain3DMeshAsset" id="Terrain3DMeshAsset_lnbyr"]
+height_offset = 0.5
+density = 10.0
+material_override = SubResource("StandardMaterial3D_j3dqs")
+generated_type = 1
+
+[sub_resource type="Terrain3DTextureAsset" id="Terrain3DTextureAsset_rcc1d"]
+name = "rock030_alb_ht"
+albedo_texture = ExtResource("1_lw7i3")
+normal_texture = ExtResource("2_swuxx")
+
+[sub_resource type="Terrain3DTextureAsset" id="Terrain3DTextureAsset_tyn02"]
+name = "ground037_alb_ht"
+id = 1
+albedo_texture = ExtResource("3_f3n4m")
+normal_texture = ExtResource("4_ah4cm")
+
+[sub_resource type="Terrain3DAssets" id="Terrain3DAssets_iu8af"]
+mesh_list = Array[Terrain3DMeshAsset]([SubResource("Terrain3DMeshAsset_lnbyr")])
+texture_list = Array[Terrain3DTextureAsset]([SubResource("Terrain3DTextureAsset_rcc1d"), SubResource("Terrain3DTextureAsset_tyn02")])
+
+[node name="Node3D" type="Node3D"]
+
+[node name="Terrain3D" type="Terrain3D" parent="."]
+data_directory = "res://scenes/test_Terrain"
+material = SubResource("Terrain3DMaterial_8ve5y")
+assets = SubResource("Terrain3DAssets_iu8af")
+top_level = true
+metadata/_edit_lock_ = true
